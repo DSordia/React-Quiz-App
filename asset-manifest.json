@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/React-Quiz-App/static/css/main.5f361e03.chunk.css",
+    "main.js": "/React-Quiz-App/static/js/main.fc987e33.chunk.js",
+    "main.js.map": "/React-Quiz-App/static/js/main.fc987e33.chunk.js.map",
+    "runtime-main.js": "/React-Quiz-App/static/js/runtime-main.e405514e.js",
+    "runtime-main.js.map": "/React-Quiz-App/static/js/runtime-main.e405514e.js.map",
+    "static/js/2.7fe86390.chunk.js": "/React-Quiz-App/static/js/2.7fe86390.chunk.js",
+    "static/js/2.7fe86390.chunk.js.map": "/React-Quiz-App/static/js/2.7fe86390.chunk.js.map",
+    "index.html": "/React-Quiz-App/index.html",
+    "precache-manifest.f0d1ada7a0ef6c370d319af9926d1558.js": "/React-Quiz-App/precache-manifest.f0d1ada7a0ef6c370d319af9926d1558.js",
+    "service-worker.js": "/React-Quiz-App/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/React-Quiz-App/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.7fe86390.chunk.js.LICENSE.txt": "/React-Quiz-App/static/js/2.7fe86390.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/React-Quiz-App/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e405514e.js",
+    "static/js/2.7fe86390.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.fc987e33.chunk.js"
+  ]
+}
