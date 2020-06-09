@@ -13,8 +13,9 @@ const Score = styled.div`
 const Q = styled.div`
     text-align: center;
     margin: 0 auto;
-    width: 700px;
-    font-size: 2em;
+    width: 70%;
+    overflow-wrap: break-word;
+    font-size: 1.9em;
     margin-top: 20px;
     margin-bottom: 20px;
 `

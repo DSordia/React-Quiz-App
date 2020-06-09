@@ -130,7 +130,7 @@ const questionsBank = [
       correct: "Uppercase"
     },
     {
-      question: "Which of the following method define default values for properties using props?",
+      question: "Which of the following methods define default values for properties using props?",
       answers: ["getPropsValue", "getInitialState", "getWillState", "getDefaultProps"],
       correct: "getDefaultProps"
     },
@@ -148,11 +148,6 @@ const questionsBank = [
       question: "How do you access the state of a component from within a member function?",
       answers: ["this.getState()", "this.state.value", "this.state", "this.value"],
       correct: "this.state"
-    },
-    {
-      question: "How can a child pass data to a parent?",
-      answers: ["State", "Props", "Call a function declared in the parent", "A child cannot pass data to a parent"],
-      correct: "Call a function declared in the parent"
     },
     {
       question: "How can a child pass data to a parent?",
