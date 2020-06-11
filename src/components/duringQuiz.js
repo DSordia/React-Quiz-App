@@ -13,9 +13,9 @@ const Score = styled.div`
 const Q = styled.div`
     text-align: center;
     margin: 0 auto;
-    width: 70%;
+    width: 80%;
     overflow-wrap: break-word;
-    font-size: 1.9em;
+    font-size: 1.8em;
     margin-top: 20px;
     margin-bottom: 20px;
 `
@@ -53,7 +53,7 @@ const NextBtn = styled.button`
     }
 `
 const AfterAnswer = styled.div`
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: 500;
     margin-bottom: 25px;
 `
@@ -121,7 +121,6 @@ class DuringQuiz extends React.Component {
                     answerState: 'correct',
                     score: score + 1
                 })
-                console.log('inside on Answer clicked: ' + score)
             } else {
                 this.setState({
                     answerState: 'incorrect'
