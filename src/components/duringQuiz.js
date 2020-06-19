@@ -85,75 +85,72 @@ class DuringQuiz extends React.Component {
     }
  
     componentDidMount() {
-        let { timeInSeconds } = this.state
         this.runTimer = setInterval( () => {
             this.setState({
-                timeInSeconds: timeInSeconds--
+                timeInSeconds: this.state.timeInSeconds - 1
             })}, 1000)
         }
  
     componentDidUpdate() {
         const { timeInSeconds, score } = this.state
-        const { endTheQuiz, updateTimeRanOut, getScore } = this.props
+        const { endQuiz, updateTimeRanOut, getScore } = this.props
         if (timeInSeconds === 0) {
-            this.setState({
-                timeInSeconds: 0
-            }, () => {
             getScore(score)
-            endTheQuiz()
+            endQuiz()
             updateTimeRanOut()
-            })
         }
     }
  
     componentWillUnmount() {
         clearInterval(this.runTimer)
     }
+
+    onAnswerClicked = (answer) => {
+        const { correctAnswer, score, i } = this.state
+        if (answer === correctAnswer) {
+            this.setState({
+                answerState: 'correct',
+                score: score + 1
+            })
+        } else {
+            this.setState({
+                answerState: 'incorrect'
+            })
+        }
+        this.setState({
+            i: i + 1,
+            nextDisabled: false,
+            answerDisabled: true,
+            showAfterAnswer: true
+        })
+    }
+
+    onNextClicked = () => {
+        const { questions, getScore, endQuiz } = this.props
+        const { i, score } = this.state
+        if (i === questions.length - 1) {
+            this.setState({
+                next: 'Finish Quiz'
+            })
+        } else if (i === questions.length) {
+            getScore(score)
+            return (endQuiz())
+        }
+        this.setState({
+            questionNumber: i + 1,
+            question: questions[i].question,
+            answers: questions[i].answers,
+            correctAnswer: questions[i].correct,
+            nextDisabled: true,
+            answerDisabled: false,
+            answerState: '',
+            showAfterAnswer: false
+        })
+    }
  
     render() {
-        const { questions, endTheQuiz, getScore } = this.props
-        let { i } = this.state
-        const { questionNumber, question, answers, correctAnswer, answerState, answerDisabled, showAfterAnswer, next, nextDisabled, score, timeInSeconds } = this.state
- 
-        const onAnswerClicked = (answer) => {
-            if (answer === correctAnswer) {
-                this.setState({
-                    answerState: 'correct',
-                    score: score + 1
-                })
-            } else {
-                this.setState({
-                    answerState: 'incorrect'
-                })
-            }
-            this.setState({
-                i: i + 1,
-                nextDisabled: false,
-                answerDisabled: true,
-                showAfterAnswer: true
-            })
-        }
- 
-        const onNextClicked = () => {
-            if (i === questions.length - 1) {
-                this.setState({
-                    next: 'Finish Quiz'
-                })
-            } else if (i === questions.length) {
-                getScore(score)
-                return (endTheQuiz())
-            }
-            this.setState({
-                questionNumber: i + 1,
-                question: questions[i].question,
-                answers: questions[i].answers,
-                correctAnswer: questions[i].correct,
-                nextDisabled: true,
-                answerDisabled: false,
-                answerState: '',
-                showAfterAnswer: false
-            })
-        }
+        const { questions } = this.props
+        const { i, questionNumber, question, answers, correctAnswer, answerState, answerDisabled, showAfterAnswer, next, nextDisabled, score, timeInSeconds } = this.state
  
         return (
             <div>
@@ -163,10 +160,10 @@ class DuringQuiz extends React.Component {
                 {showAfterAnswer && <AfterAnswer>Answer: {correctAnswer} </AfterAnswer>}
                 <div>
                     {answers.map((answer) => (
-                        <AnswerBtn disabled={answerDisabled} styleProp={answerState} key={answer} onClick={() => onAnswerClicked(answer)}>{answer}</AnswerBtn>
+                        <AnswerBtn disabled={answerDisabled} styleProp={answerState} key={answer} onClick={() => this.onAnswerClicked(answer)}>{answer}</AnswerBtn>
                     ))}
                 </div>
-                <NextBtn disabled={nextDisabled} onClick={onNextClicked}>{next}</NextBtn>
+                <NextBtn disabled={nextDisabled} onClick={this.onNextClicked}>{next}</NextBtn>
                 <Score>Score: {score}/{i}</Score>
             </div>
           )

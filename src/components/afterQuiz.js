@@ -31,7 +31,6 @@ class AfterQuiz extends React.Component {
     render() {
         const { questions, restartQuiz, score, timeRanOut } = this.props
  
-        console.log('inside after quiz render: ' + score)
         return (
             <div>
                 <Summary>

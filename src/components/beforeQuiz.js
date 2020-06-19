@@ -23,7 +23,7 @@ const Note = styled.div`
 const DifficultyBtn = styled.button`
     color: black;
     display: block;
-    width: 230px;
+    width: 235px;
     margin: 0 auto;
     margin-top: 15px;
     white-space: pre-wrap;
@@ -57,7 +57,7 @@ const EmptyTimer = styled.div`
 class BeforeQuiz extends React.Component {
     constructor (props) {
         super(props)
-        const { difficultyOptions, timeInSeconds } = props
+        const { difficultyOptions, timeInSeconds } = this.props
         this.state = {
             isDifficultySelected: Array(difficultyOptions.length).fill(false),
             beginDisabled: true,
@@ -70,39 +70,39 @@ class BeforeQuiz extends React.Component {
         const { setTimer } = this.props
         const { timeInSeconds } = this.state
         if (timeInSeconds !== prevState.timeInSeconds) {
-            setTimer(this.state.timeInSeconds)
+            setTimer(timeInSeconds)
         }
+    }
+
+    onSelectDifficulty = (numberOfQuestions, timeInMin, i) => {
+        const { difficultyOptions, generateQuestions } = this.props
+        let tempIsDifficultySelected = Array(difficultyOptions.length).fill(false)
+        tempIsDifficultySelected[i] = !tempIsDifficultySelected[i]
+        this.setState({
+            isDifficultySelected: tempIsDifficultySelected,
+            beginDisabled: false,
+            showTimer: true,
+            timeInSeconds: Math.floor(timeInMin * 60)
+        })
+        generateQuestions(numberOfQuestions)
     }
  
     render() {
-        let { isDifficultySelected } = this.state
-        const { beginDisabled, showTimer, timeInSeconds } = this.state
-        const { startTheQuiz, difficultyOptions, generateQuestions } = this.props
- 
-        const onSelectDifficulty = (numberOfQuestions, timeInMin, i) => {
-            isDifficultySelected = Array(difficultyOptions.length).fill(false)
-            isDifficultySelected[i] = !isDifficultySelected[i]
-            this.setState({
-                isDifficultySelected: isDifficultySelected,
-                beginDisabled: false,
-                showTimer: true,
-                timeInSeconds: Math.floor(timeInMin * 60)
-            })
-            generateQuestions(numberOfQuestions)
-        }
+        const { isDifficultySelected, beginDisabled, showTimer, timeInSeconds } = this.state
+        const { startQuiz, difficultyOptions } = this.props
         
         return (
             <div>
                 <Note>Select Difficulty:</Note>
                 <div>
                     {difficultyOptions.map((difficultyOption, i) => (
-                        <DifficultyBtn selected={isDifficultySelected[i]} key={i} onClick={() => onSelectDifficulty(difficultyOption.numberOfQuestions, difficultyOption.timeInMin, i)}>
+                        <DifficultyBtn selected={isDifficultySelected[i]} key={i} onClick={() => this.onSelectDifficulty(difficultyOption.numberOfQuestions, difficultyOption.timeInMin, i)}>
                             <DifficultyText>{difficultyOption.difficulty}</DifficultyText> {'\n'} {difficultyOption.numberOfQuestions} question{difficultyOption.numberOfQuestions === 1 ? '' : 's'} in {difficultyOption.timeInMin} {difficultyOption.timeInMin === 1 ? 'minute' : 'minutes'}
                         </DifficultyBtn>
                     ))}
                 </div>
                 {showTimer ? <Timer>{Math.floor(timeInSeconds / 60) + ':' + ('0' + Math.floor(timeInSeconds % 60)).slice(-2)}</Timer> : <EmptyTimer></EmptyTimer>}
-                <BeginBtn disabled={beginDisabled} onClick={startTheQuiz}>Begin Quiz</BeginBtn>
+                <BeginBtn disabled={beginDisabled} onClick={startQuiz}>Begin Quiz</BeginBtn>
             </div>
           )
         }

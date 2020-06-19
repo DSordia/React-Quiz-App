@@ -14,96 +14,96 @@ class Quiz extends React.Component  {
         timeInSeconds: 0,
         timeRanOut: false
     }
+
+    difficultyOptions = [
+        {
+            difficulty: 'Easy',
+            numberOfQuestions: 12,
+            timeInMin: 2
+        },
+        {
+            difficulty: 'Medium',
+            numberOfQuestions: 15,
+            timeInMin: 1.5
+        },
+        {
+            difficulty: 'Hard',
+            numberOfQuestions: 20,
+            timeInMin: 1
+        }
+    ]
+
+    startQuiz = () => {
+        this.setState({
+            beforeQuizHidden: true,
+            duringQuizHidden: false
+        })
+    }
+
+    endQuiz = () => {
+        this.setState({
+            duringQuizHidden: true,
+            afterQuizHidden: false,
+        })
+    }
+
+    restartQuiz = () => {
+        this.setState({
+            beforeQuizHidden: false,
+            afterQuizHidden: true,
+            timeRanOut: false
+        })
+    }
+
+    generateQuestions = (numberOfQuestions) => {
+        this.setState({
+            questions: questionsFromBank(numberOfQuestions)
+        })
+    }
+
+    getScore = (finalScore) => {
+        this.setState({
+            score: finalScore
+        })
+    }
+
+    setTimer = (updatedTime) => {
+        this.setState({
+            timeInSeconds: updatedTime
+        })
+    }
+
+    updateTimeRanOut = () => {
+        this.setState({
+            timeRanOut: true
+        })
+    }
  
     render() {
-        const { questions, score, timeInSeconds, timeRanOut } = this.state
- 
-        const difficultyOptions = [
-            {
-                difficulty: 'Easy',
-                numberOfQuestions: 12,
-                timeInMin: 2
-            },
-            {
-                difficulty: 'Medium',
-                numberOfQuestions: 15,
-                timeInMin: 1.5
-            },
-            {
-                difficulty: 'Hard',
-                numberOfQuestions: 20,
-                timeInMin: 1
-            }
-        ]
-    
-        const startTheQuiz = () => {
-            this.setState({
-                beforeQuizHidden: true,
-                duringQuizHidden: false
-            })
-        }
-    
-        const endTheQuiz = () => {
-            this.setState({
-                duringQuizHidden: true,
-                afterQuizHidden: false,
-            })
-        }
-    
-        const restartQuiz = () => {
-            this.setState({
-                beforeQuizHidden: false,
-                afterQuizHidden: true,
-                timeRanOut: false
-            })
-        }
- 
-        const generateQuestions = (numberOfQuestions) => {
-            this.setState({
-                questions: questionsFromBank(numberOfQuestions)
-            })
-        }
- 
-        const getScore = (finalScore) => {
-            this.setState({
-                score: finalScore
-            })
-        }
- 
-        const setTimer = (updatedTime) => {
-            this.setState({
-                timeInSeconds: updatedTime
-            })
-        }
- 
-        const updateTimeRanOut = () => {
-            this.setState({
-                timeRanOut: true
-            })
-        }
+        const { beforeQuizHidden, duringQuizHidden, afterQuizHidden, questions, score, timeInSeconds, timeRanOut } = this.state
  
         return (
             <div>
-                {!this.state.beforeQuizHidden && <BeforeQuiz
-                startTheQuiz = {startTheQuiz}
-                difficultyOptions = {difficultyOptions}
-                generateQuestions = {generateQuestions}
+                {!beforeQuizHidden && <BeforeQuiz
+                startQuiz = {this.startQuiz}
+                difficultyOptions = {this.difficultyOptions}
+                generateQuestions = {this.generateQuestions}
                 timeInSeconds = {timeInSeconds}
-                setTimer = {setTimer}
+                setTimer = {this.setTimer}
                 />}
  
-                {!this.state.duringQuizHidden && <DuringQuiz
+                {!duringQuizHidden && <DuringQuiz
                 questions = {questions}
-                endTheQuiz = {endTheQuiz}
-                getScore = {getScore}
+                endQuiz = {this.endQuiz}
+                getScore = {this.getScore}
                 timeInSeconds = {timeInSeconds}
                 timeRanOut = {timeRanOut}
-                updateTimeRanOut = {updateTimeRanOut}
+                updateTimeRanOut = {this.updateTimeRanOut}
                 />}
  
-                {!this.state.afterQuizHidden && <AfterQuiz
+                {!afterQuizHidden && <AfterQuiz
                 questions = {questions}
-                restartQuiz = {restartQuiz}
+                restartQuiz = {this.restartQuiz}
                 score = {score}
                 timeInSeconds = {timeInSeconds}
                 timeRanOut = {timeRanOut}
