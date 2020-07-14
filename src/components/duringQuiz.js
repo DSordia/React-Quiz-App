@@ -134,7 +134,7 @@ class DuringQuiz extends React.Component {
             })
         } else if (i === questions.length) {
             getScore(score)
-            return (endQuiz())
+            return endQuiz()
         }
         this.setState({
             questionNumber: i + 1,
