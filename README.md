@@ -1,4 +1,4 @@
-#React Quiz App
+# React Quiz App
 
 A quiz about React, built with React.
 
