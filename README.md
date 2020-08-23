@@ -8,4 +8,4 @@ Technologies Used:
 HTML, CSS, JavaScript, React, ES6, Styled Components
 
 Features:
-3 difficulties to choose from, Styled, Responsive, Built-in timer, Scalable, Questions randomized every time
+3 difficulties to choose from, styled, responsive, built-in timer, scalable, questions randomized every time
